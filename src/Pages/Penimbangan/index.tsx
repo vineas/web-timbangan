@@ -3,7 +3,7 @@ import { useState } from "react";
 export const PenimbanganPage = () => {
       const [isEditing, setIsEditing] = useState(false);
 
-  const handleTimbang = (e) => {
+  const handleTimbang = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setIsEditing(true); // aktifkan input setelah klik Timbang
   };
