@@ -16,6 +16,7 @@ function App() {
           <SidebarComponent />
           <main className="flex-1 p-4 pt-5 h-screen overflow-y-auto">
             <Routes>
+              <Route path="/" element={<PenimbanganPage />} />
               <Route path="/penimbangan" element={<PenimbanganPage />} />
               <Route path="/master-product" element={<MasterProductsPage />} />
               <Route path="/suplier-customer" element={<CustomerPage />} />
