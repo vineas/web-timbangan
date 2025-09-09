@@ -12,9 +12,9 @@ function App() {
     <>
       <Router>
           <HeaderComponent />
-        <div className="flex h-screen mt-9">
+        <div className="flex h-screen ">
           <SidebarComponent />
-          <main className="flex-1 p-4 pt-5 h-screen overflow-y-auto">
+          <main className="p-4 pt-15 h-screen overflow-y-auto bg-gray-300">
             <Routes>
               <Route path="/" element={<PenimbanganPage />} />
               <Route path="/penimbangan" element={<PenimbanganPage />} />

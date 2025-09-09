@@ -49,6 +49,7 @@ export const SidebarComponent = () => {
             },
           },
         }}
+        className="mt-12"
       >
         <MenuItem icon={<FaWeight />} component={<Link to="/penimbangan" />}>
           Penimbangan

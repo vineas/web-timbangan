@@ -48,7 +48,7 @@ export const PenimbanganPage = () => {
                 dark:border-gray-600 dark:placeholder-gray-400  
                 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="No Record '0001'"
-                    disabled // tetap disable
+                    disabled 
                     required
                   />
                   <a href="#" className="text-xs text-gray-500">
@@ -170,11 +170,27 @@ export const PenimbanganPage = () => {
                 />
               </div>
 
+                            <div className="px-6">
+                <div className="mt-4 grid grid-cols-2">
+                  <h3 className="text-sm text-center font-bold text-gray-900">
+                    Sopir
+                  </h3>
+                  <h3 className="text-sm font-bold text-center text-gray-900">
+                    Operator
+                  </h3>
+                </div>
+                <div className="mt-4 grid grid-cols-2">
+                    <div className="flex items-center justify-center">
+                  <input required type="text" disabled={!isEditing} className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"/>
+                    </div>
+                  <h5 className="text-sm text-center text-gray-900">Admin</h5>
+                </div>
+              </div>
               {/* Tombol */}
               <div>
                 <button
-                  type="submit"
-                  disabled={!isEditing}
+                  //   type="submit"
+                  //   disabled={!isEditing}
                   className="mt-8 text-white bg-blue-700 hover:bg-blue-800 
               focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
               rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
