@@ -89,7 +89,7 @@ export const TransporterPage = () => {
                       0001
                     </td>
                     <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                      Beras
+                      Cargo
                     </th>
                     <td className="px-6 py-4 text-gray-900 whitespace-nowrap">
                       <button
