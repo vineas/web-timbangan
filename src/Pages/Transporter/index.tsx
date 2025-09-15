@@ -1,121 +1,131 @@
 export const TransporterPage = () => {
   return (
-    <div className="px-55 w-full">
-      <div className="w-full p-6 bg-white rounded-lg shadow-sm flex flex-col gap-4">
-        <div className="w-full flex items-center justify-center">
-          <h2 className="text-3xl font-bold text-gray-900">Nama Transporter</h2>
-        </div>
-
-        <div className="justify-center">
-          <div>
-            <label
-              htmlFor="kode_transporter"
-              className="block mb-2 text-sm font-medium text-gray-900 "
-            >
-              Kode
-            </label>
-            <input
-              type="text"
-              id="kode_product"
-              className=" border-gray-300 text-gray-900 text-sm rounded-full 
-              focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border 
-              dark:border-gray-600 dark:placeholder-gray-400  
-              dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="0001"
-              maxLength={4}
-              required
-            />
+    <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg ">
+      <div className="max-w-7xl mx-auto">
+        <div>
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+              Daftar Transporter
+            </h2>
           </div>
-          <div className="mt-3">
-            <label
-              htmlFor="nama_transporter"
-              className="block mb-2 text-sm font-medium text-gray-900 "
-            >
-              Transporter
-            </label>
-            <input
-              type="text"
-              id="no_kendaraan"
-              className=" border-gray-300 text-gray-900 text-sm rounded-full 
-              focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border 
-              dark:border-gray-600 dark:placeholder-gray-400  
-              dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Cargo"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="ml-3 mt-8 text-white bg-blue-700 hover:bg-blue-800 
-              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
-              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
-              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 
-              disabled:opacity-50"
-          >
-            Simpan
-          </button>
-          <button
-            type="submit"
-            className="ml-3 mt-8 text-white bg-blue-700 hover:bg-blue-800 
-              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
-              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
-              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 
-              disabled:opacity-50"
-          >
-            Cancel
-          </button>
-        </div>
 
-        <div className="flex items-center justify-center">
-          <div>
-            <div className="relative overflow-x-auto">
-              <table className="w-xl text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-gray-200 ">
-                      Kode
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-gray-200 ">
-                      Nama Transporter
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-gray-200 ">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-white border-b dark:bg-gray-300 dark:border-gray-300 border-gray-200">
-                    <td className="px-6 py-4 text-gray-900 whitespace-nowrap">
-                      0001
-                    </td>
-                    <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                      Cargo
-                    </th>
-                    <td className="px-6 py-4 text-gray-900 whitespace-nowrap">
-                      <button
-                        type="submit"
-                        className="ml-3 mt-8 text-white bg-yellow-700 hover:bg-yellow-800 
-              focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium 
-              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
-              dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800 
-              disabled:opacity-50"
+          {/* Form Section */}
+          <div className="mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
+              <div className="xl:col-start-1">
+                <label
+                  htmlFor="transporter"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Kode
+                </label>
+                <input
+                  type="text"
+                  id="transporter"
+                  name="transporter"
+                  className="border-2 border-gray-300 text-gray-900 text-sm rounded-full 
+                    focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-3
+                    hover:border-gray-400 transition-colors duration-200"
+                  placeholder="0001"
+                  maxLength={4}
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="nama_transporter"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Nama Transporter
+                </label>
+                <input
+                  type="text"
+                  id="nama_transporter"
+                  name="nama_transporter"
+                  className="border-2 border-gray-300 text-gray-900 text-sm rounded-full 
+                    focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-3
+                    hover:border-gray-400 transition-colors duration-200"
+                  placeholder="Cargo"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium 
+                  rounded-full px-8 py-3 transition-colors duration-200 
+                  focus:ring-4 focus:ring-blue-300 focus:outline-none
+                  shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                Simpan
+              </button>
+              <button
+                className="bg-gray-600 hover:bg-gray-700 text-white font-medium 
+                  rounded-full px-8 py-3 transition-colors duration-200 
+                  focus:ring-4 focus:ring-gray-300 focus:outline-none
+                  shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+
+          {/* Table Section */}
+          <div className="container mx-auto p-4">
+            <div className="bg-white shadow-md rounded-lg overflow-hidden">
+              <div className="max-h-96 overflow-y-auto">
+                <table className="min-w-full table-fixed border-collapse">
+                  <thead className="sticky top-0 bg-slate-50 z-10">
+                    <tr className="text-slate-500 border-b border-slate-300">
+                      <th className="w-2/5 p-4 text-left">
+                        <p className="text-sm leading-none font-normal">
+                          Nama Transporter
+                        </p>
+                      </th>
+                      <th className="w-1/5 p-4 text-left">
+                        <p className="text-sm leading-none font-normal">Kode</p>
+                      </th>
+                      <th className="w-2/5 p-4 text-left">
+                        <p className="text-sm leading-none font-normal">
+                          Action
+                        </p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...Array(20)].map((_, i) => (
+                      <tr
+                        key={i}
+                        className="hover:bg-slate-50 border-b border-slate-200 transition-colors duration-150"
                       >
-                        Edit
-                      </button>
-                      <button
-                        type="submit"
-                        className="ml-3 mt-8 text-white bg-red-700 hover:bg-red-800 
-              focus:ring-4 focus:outline-none focus:ring-red-300 font-medium 
-              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
-              dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 
-              disabled:opacity-50"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        <td className="w-2/5 p-4">
+                          <div className="text-sm font-bold text-gray-800 break-words">
+                            Transporter {String.fromCharCode(65 + i)}
+                          </div>
+                        </td>
+                        <td className="w-1/5 p-4">
+                          <div className="text-sm text-gray-600 break-words">
+                            TR-{String(i + 1).padStart(3, "0")}
+                          </div>
+                        </td>
+                        <td className="w-2/5 p-4">
+                          <div className="flex items-center gap-3">
+                            <button className="text-sm font-semibold text-blue-600 hover:text-blue-800 px-3 py-1 rounded hover:bg-blue-50 transition-colors duration-150">
+                              Edit
+                            </button>
+                            <button className="text-sm font-semibold text-red-600 hover:text-red-800 px-3 py-1 rounded hover:bg-red-50 transition-colors duration-150">
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

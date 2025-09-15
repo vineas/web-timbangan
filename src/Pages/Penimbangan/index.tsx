@@ -8,22 +8,77 @@ export const PenimbanganPage = () => {
     setIsEditing(true); // aktifkan input setelah klik Timbang
   };
   return (
-    <div className="px-24">
-      <div className="max-w-5xl p-6 bg-white rounded-lg shadow-sm flex flex-col gap-4">
+    <div className="container mx-auto">
+      <div className="bg-white rounded-xl shadow-lg p-5 md:p-8 w-full">
         <div className="flex items-center justify-center">
-          <div className="max-w-xl px-40 py-25  bg-black">
-            <h2 className="mb-2 text-5xl font-bold text-gray-white flex justify-between">
+          <div className="max-w-xl px-13 py-15 md:px-33 md:py-25  bg-black">
+            <h2 className="text-5xl font-bold text-gray-white flex justify-between">
               2455 kg
             </h2>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="gap-4">
           {/* Form */}
           <div>
             <form>
-              <div className="grid gap-6 mb-6 md:grid-cols-2">
+              {/* Button Ganti Operator dan Timbang */}
+              <div className="flex flex-col md:flex-row justify-center items-center md:items-start">
+                <button
+                  className="mt-8 text-white bg-blue-700 hover:bg-blue-800 
+              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
+              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
+              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 
+              disabled:opacity-50"
+                >
+                  Ganti Operator
+                </button>
+                <button
+                  onClick={handleTimbang}
+                  className="md:ml-3 mt-8 text-white bg-blue-700 hover:bg-blue-800 
+              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
+              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
+              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Timbang
+                </button>
+              </div>
+
+              {/* Sopir & Operator */}
+              <div className="px-6">
+                <div className="mt-4 grid grid-cols-2">
+                  <h3 className="text-sm text-center font-bold text-gray-900">
+                    Sopir
+                  </h3>
+                  <h3 className="text-sm font-bold text-center text-gray-900">
+                    Operator
+                  </h3>
+                </div>
+                <div className="mt-4 grid grid-cols-2">
+                  <div className="flex items-center justify-center">
+                    <input
+                      required
+                      type="text"
+                      disabled={!isEditing}
+                      className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
+                    />
+                  </div>
+                  <h5 className="text-sm text-center text-gray-900">Admin</h5>
+                </div>
+              </div>
+
+              {/* Input Fields */}
+              {/* Tipe Penimbangan, No Record, No Kendaraan */}
+              <div className="grid gap-3 md:gap-6 mb-6 md:grid-cols-5 mt-5">
+                <div></div>
+                {/* Tipe Penimbangan */}
                 <div>
+                  <label
+                    htmlFor="tipe_penimbangan"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Tipe Penimbangan
+                  </label>
                   <select
                     disabled={!isEditing}
                     id="first_name"
@@ -39,115 +94,123 @@ export const PenimbanganPage = () => {
                     <option value="reflaksikg">Reflaksi kg</option>
                   </select>
                 </div>
+                {/* No Record */}
                 <div>
+                  <label
+                    htmlFor="no_record"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    No. Record
+                  </label>
                   <input
                     type="number"
                     id="record"
-                    className=" border-gray-300 text-gray-900 text-sm rounded-full 
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border 
-                dark:border-gray-600 dark:placeholder-gray-400  
-                dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="No Record '0001'"
-                    disabled 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-300 text-gray-900 text-sm rounded-full 
+                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="0001"
+                    disabled
                     required
                   />
                   <a href="#" className="text-xs text-gray-500">
                     Reset
                   </a>
                 </div>
-              </div>
-
-              {/* No Kendaraan */}
-              <div className="mt-3">
-                <label
-                  htmlFor="no_kendaraan"
-                  className="block mb-2 text-sm font-medium text-gray-900 "
-                >
-                  No. Kendaraan
-                </label>
-                <input
-                  type="text"
-                  id="no_kendaraan"
-                  disabled={!isEditing}
-                  className=" border-gray-300 text-gray-900 text-sm rounded-full 
+                {/* No Kendaraan */}
+                <div className="">
+                  <label
+                    htmlFor="no_kendaraan"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    No. Kendaraan
+                  </label>
+                  <input
+                    type="text"
+                    id="no_kendaraan"
+                    disabled={!isEditing}
+                    className=" border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border 
               dark:border-gray-600 dark:placeholder-gray-400  
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="B1234YN"
-                  required
-                />
+                    placeholder="B1234YN"
+                    required
+                  />
+                </div>
               </div>
 
-              {/* Nama Barang */}
-              <div className="mt-3">
-                <label
-                  htmlFor="nama_barang"
-                  className="block mb-2 text-sm font-medium text-gray-900 "
-                >
-                  Nama Barang
-                </label>
-                <select
-                  id="product"
-                  disabled={!isEditing}
-                  className=" border border-gray-300 text-gray-900 text-sm rounded-full 
+              {/* Nama Barang, Nama Customer, Transporter */}
+              <div className="grid gap-3 md:gap-6 mb-6 md:grid-cols-1">
+                {/* Nama Barang */}
+                <div className="mt-3">
+                  <label
+                    htmlFor="nama_barang"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Nama Barang
+                  </label>
+                  <select
+                    id="product"
+                    disabled={!isEditing}
+                    className=" border border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
               dark:border-gray-600 dark:placeholder-gray-400  
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  name="Barang"
-                >
-                  <option value="normal">Product 1</option>
-                  <option value="reflaksipersen">Product 2</option>
-                  <option value="hargasatuan">Product 3</option>
-                  <option value="reflaksikg">Product 4</option>
-                </select>
-              </div>
-
-              {/* Nama Customer */}
-              <div className="mt-3">
-                <label
-                  htmlFor="no_record"
-                  className="block mb-2 text-sm font-medium text-gray-900 "
-                >
-                  Nama Customer
-                </label>
-                <select
-                  id="customer"
-                  disabled={!isEditing}
-                  className=" border border-gray-300 text-gray-900 text-sm rounded-full 
+                    name="Barang"
+                  >
+                    <option value="normal">Product 1</option>
+                    <option value="reflaksipersen">Product 2</option>
+                    <option value="hargasatuan">Product 3</option>
+                    <option value="reflaksikg">Product 4</option>
+                  </select>
+                </div>
+              </div>          
+              <div className="grid gap-3 md:gap-6 mb-6 md:grid-cols-2">
+                {/* Nama Customer */}
+                <div className="mt-3">
+                  <label
+                    htmlFor="no_record"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Nama Customer
+                  </label>
+                  <select
+                    id="customer"
+                    disabled={!isEditing}
+                    className=" border border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
               dark:border-gray-600 dark:placeholder-gray-400  
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  name="Customer"
-                >
-                  <option value="normal">Customer 1</option>
-                  <option value="reflaksipersen">Customer 2</option>
-                  <option value="hargasatuan">Customer 3</option>
-                  <option value="reflaksikg">Customer 4</option>
-                </select>
-              </div>
+                    name="Customer"
+                  >
+                    <option value="normal">Customer 1</option>
+                    <option value="reflaksipersen">Customer 2</option>
+                    <option value="hargasatuan">Customer 3</option>
+                    <option value="reflaksikg">Customer 4</option>
+                  </select>
+                </div>
 
-              {/* Transporter */}
-              <div className="mt-3">
-                <label
-                  htmlFor="transporter"
-                  className="block mb-2 text-sm font-medium text-gray-900 "
-                >
-                  Transporter
-                </label>
-                <select
-                  id="transporter"
-                  disabled={!isEditing}
-                  className=" border border-gray-300 text-gray-900 text-sm rounded-full 
+                {/* Transporter */}
+                <div className="mt-3">
+                  <label
+                    htmlFor="transporter"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Transporter
+                  </label>
+                  <select
+                    id="transporter"
+                    disabled={!isEditing}
+                    className=" border border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
               dark:border-gray-600 dark:placeholder-gray-400  
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  name="Transporter"
-                >
-                  <option value="normal">Transporter 1</option>
-                  <option value="reflaksipersen">Transporter 2</option>
-                  <option value="hargasatuan">Transporter 3</option>
-                  <option value="reflaksikg">Transporter 4</option>
-                </select>
+                    name="Transporter"
+                  >
+                    <option value="normal">Transporter 1</option>
+                    <option value="reflaksipersen">Transporter 2</option>
+                    <option value="hargasatuan">Transporter 3</option>
+                    <option value="reflaksikg">Transporter 4</option>
+                  </select>
+                </div>
               </div>
 
               {/* No DO/PO */}
@@ -170,48 +233,12 @@ export const PenimbanganPage = () => {
                 />
               </div>
 
-                            <div className="px-6">
-                <div className="mt-4 grid grid-cols-2">
-                  <h3 className="text-sm text-center font-bold text-gray-900">
-                    Sopir
-                  </h3>
-                  <h3 className="text-sm font-bold text-center text-gray-900">
-                    Operator
-                  </h3>
-                </div>
-                <div className="mt-4 grid grid-cols-2">
-                    <div className="flex items-center justify-center">
-                  <input required type="text" disabled={!isEditing} className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"/>
-                    </div>
-                  <h5 className="text-sm text-center text-gray-900">Admin</h5>
-                </div>
-              </div>
-              {/* Tombol */}
+              {/* Simpan Button */}
               <div>
-                <button
-                  //   type="submit"
-                  //   disabled={!isEditing}
-                  className="mt-8 text-white bg-blue-700 hover:bg-blue-800 
-              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
-              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
-              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 
-              disabled:opacity-50"
-                >
-                  Ganti Operator
-                </button>
-                <button
-                  onClick={handleTimbang}
-                  className="ml-3 mt-8 text-white bg-blue-700 hover:bg-blue-800 
-              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
-              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
-              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Timbang
-                </button>
                 <button
                   type="submit"
                   disabled={!isEditing}
-                  className="ml-3 mt-8 text-white bg-blue-700 hover:bg-blue-800 
+                  className="mt-4 text-white bg-blue-700 hover:bg-blue-800 
               focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
               rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
               dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 
@@ -219,12 +246,13 @@ export const PenimbanganPage = () => {
                 >
                   Simpan
                 </button>
-              </div>
+              </div>              
+              
             </form>
           </div>
 
           {/* Table */}
-          <div>
+          <div className="mt-6 w-full text-left table-auto border-collapse">
             <div className="relative overflow-x-auto">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

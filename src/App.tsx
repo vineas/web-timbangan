@@ -8,13 +8,14 @@ import { MasterProductsPage } from "./Pages/MasterProducts";
 import { TransporterPage } from "./Pages/Transporter";
 
 function App() {
+  
   return (
     <>
       <Router>
           <HeaderComponent />
         <div className="flex h-screen ">
           <SidebarComponent />
-          <main className="p-4 pt-15 h-screen overflow-y-auto bg-gray-300">
+          <main className="p-4 pt-15 overflow-y-scroll bg-gray-300">
             <Routes>
               <Route path="/" element={<PenimbanganPage />} />
               <Route path="/penimbangan" element={<PenimbanganPage />} />
