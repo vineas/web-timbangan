@@ -1,4 +1,24 @@
+import { useEffect, useState } from "react";
+import type { Barang } from "../../types";
+import supabase from "../../lib/db";
+
 export const MasterProductsPage = () => {
+  const [barangs, setBarangs] = useState<Barang[]>([]);
+
+  useEffect(()=>{
+    const fetchBarang = async () => {
+      const {data, error} = await supabase.from('barang').select('*');
+
+      if(error) console.error('error: ', error);
+      else setBarangs(data)
+    };
+
+    fetchBarang();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase]);
+  console.log(barangs);
+  
+
   return (
     <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg ">
       <div className="max-w-7xl mx-auto">
@@ -96,20 +116,19 @@ export const MasterProductsPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {[...Array(20)].map((_, i) => (
+                    {barangs.map((barang, i) => (
                       <tr
-                        key={i}
+                        key={barang.id}
                         className="hover:bg-slate-50 border-b border-slate-200 transition-colors duration-150"
                       >
                         <td className="w-2/5 p-4">
                           <div className="text-sm font-bold text-gray-800 break-words">
-                            Barang {String.fromCharCode(65 + i)} - Product Name{" "}
-                            {i + 1}
+                            {barang.nama_barang}
                           </div>
                         </td>
                         <td className="w-1/5 p-4">
                           <div className="text-sm text-gray-600 break-words">
-                            BR-{String(i + 1).padStart(3, "0")}
+                            {String(barang.kode_barang).padStart(4, '0')}
                           </div>
                         </td>
                         <td className="w-2/5 p-4">

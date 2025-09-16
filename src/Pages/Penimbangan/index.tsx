@@ -24,7 +24,10 @@ export const PenimbanganPage = () => {
             <form>
               {/* Button Ganti Operator dan Timbang */}
               <div className="flex flex-col md:flex-row justify-center items-center md:items-start">
-                <button
+                {/* <button
+                  data-modal-target="crud-modal"
+                  data-modal-toggle="crud-modal"
+                  type="button"
                   className="mt-8 text-white bg-blue-700 hover:bg-blue-800 
               focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
               rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
@@ -32,7 +35,10 @@ export const PenimbanganPage = () => {
               disabled:opacity-50"
                 >
                   Ganti Operator
-                </button>
+                </button> */}
+
+                {/* Modal */}
+
                 <button
                   onClick={handleTimbang}
                   className="md:ml-3 mt-8 text-white bg-blue-700 hover:bg-blue-800 
@@ -48,22 +54,32 @@ export const PenimbanganPage = () => {
               <div className="px-6">
                 <div className="mt-4 grid grid-cols-2">
                   <h3 className="text-sm text-center font-bold text-gray-900">
-                    Sopir
+                    Operator
                   </h3>
                   <h3 className="text-sm font-bold text-center text-gray-900">
-                    Operator
+                    Sopir
                   </h3>
                 </div>
                 <div className="mt-4 grid grid-cols-2">
                   <div className="flex items-center justify-center">
                     <input
+                      id="operator"
                       required
                       type="text"
                       disabled={!isEditing}
                       className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
                     />
                   </div>
-                  <h5 className="text-sm text-center text-gray-900">Admin</h5>
+                  <div className="flex items-center justify-center">
+                    <input
+                      id="sopir"
+                      required
+                      type="text"
+                      disabled={!isEditing}
+                      className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
+                    />
+                  </div>
+                  {/* <h5 className="text-sm text-center text-gray-900">Admin</h5> */}
                 </div>
               </div>
 
@@ -162,7 +178,7 @@ export const PenimbanganPage = () => {
                     <option value="reflaksikg">Product 4</option>
                   </select>
                 </div>
-              </div>          
+              </div>
               <div className="grid gap-3 md:gap-6 mb-6 md:grid-cols-2">
                 {/* Nama Customer */}
                 <div className="mt-3">
@@ -246,8 +262,7 @@ export const PenimbanganPage = () => {
                 >
                   Simpan
                 </button>
-              </div>              
-              
+              </div>
             </form>
           </div>
 

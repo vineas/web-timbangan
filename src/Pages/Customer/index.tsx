@@ -2,7 +2,6 @@ export const CustomerPage = () => {
   return (
     <div className="container">
       <div className="p-6 bg-white shadow-sm rounded-lg">
-
         {/* Header */}
         <div className="flex items-center justify-center">
           <h2 className="text-3xl font-bold text-gray-900">
@@ -214,13 +213,13 @@ export const CustomerPage = () => {
                   </td>
                   <td className="p-4">
                     <div className="flex items-center gap-3">
-                            <button className="text-sm font-semibold text-blue-600 hover:text-blue-800 px-3 py-1 rounded hover:bg-blue-50 transition-colors duration-150">
-                              Edit
-                            </button>
-                            <button className="text-sm font-semibold text-red-600 hover:text-red-800 px-3 py-1 rounded hover:bg-red-50 transition-colors duration-150">
-                              Delete
-                            </button>
-                          </div>
+                      <button className="text-sm font-semibold text-blue-600 hover:text-blue-800 px-3 py-1 rounded hover:bg-blue-50 transition-colors duration-150">
+                        Edit
+                      </button>
+                      <button className="text-sm font-semibold text-red-600 hover:text-red-800 px-3 py-1 rounded hover:bg-red-50 transition-colors duration-150">
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
