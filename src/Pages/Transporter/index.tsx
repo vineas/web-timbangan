@@ -1,4 +1,23 @@
+import { useEffect, useState } from "react";
+import type { Transporter } from "../../types";
+import supabase from "../../lib/db";
+
 export const TransporterPage = () => {
+  const [transporters, setTransporters] = useState<Transporter[]>([]);
+
+  useEffect(() => {
+    const fetchTransporter = async () => {
+      const { data, error } = await supabase.from("transporter").select("*");
+
+      if (error) console.error("error: ", error);
+      else setTransporters(data);
+    };
+
+    fetchTransporter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase]);
+  console.log(transporters);
+
   return (
     <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg ">
       <div className="max-w-7xl mx-auto">
@@ -96,19 +115,19 @@ export const TransporterPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {[...Array(20)].map((_, i) => (
+                    {transporters.map((transporter) => (
                       <tr
-                        key={i}
+                        key={transporter.id}
                         className="hover:bg-slate-50 border-b border-slate-200 transition-colors duration-150"
                       >
                         <td className="w-2/5 p-4">
                           <div className="text-sm font-bold text-gray-800 break-words">
-                            Transporter {String.fromCharCode(65 + i)}
+                            {transporter.nama_transporter}
                           </div>
                         </td>
                         <td className="w-1/5 p-4">
                           <div className="text-sm text-gray-600 break-words">
-                            TR-{String(i + 1).padStart(3, "0")}
+                            {transporter.kode_transporter.toString().padStart(4, '0')}
                           </div>
                         </td>
                         <td className="w-2/5 p-4">

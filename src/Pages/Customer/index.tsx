@@ -1,4 +1,23 @@
+import { useEffect, useState } from "react";
+import type { Customer } from "../../types";
+import supabase from "../../lib/db";
+
 export const CustomerPage = () => {
+  const [customers, setCustomers] = useState<Customer[]>([]);
+
+  // Get data customer from Supabase
+  useEffect(() => {
+    const fetchCustomer = async () => {
+      const { data, error } = await supabase.from("customer").select("*");
+
+      if (error) console.error("error: ", error);
+      else setCustomers(data);
+    };
+    fetchCustomer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase]);
+
+  
   return (
     <div className="container">
       <div className="p-6 bg-white shadow-sm rounded-lg">
@@ -180,36 +199,39 @@ export const CustomerPage = () => {
               </tr>
             </thead>
             <tbody>
-              {[...Array(20)].map((_, i) => (
+              {customers.map((customer) => (
                 <tr
-                  key={i}
+                  key={customer.id}
                   className="hover:bg-slate-50 border-b border-slate-200"
                 >
                   <td className="p-4">
                     <p className="text-sm font-bold">
-                      Project {String.fromCharCode(65 + i)}
+                      {customer.nama_customer}
                     </p>
-                  </td>
-                  <td className="p-4">
-                    <p className="text-sm">0{i + 1}/01/2024</p>
-                  </td>
-                  <td className="p-4">
-                    <p className="text-sm">+62-21-555-000{i}</p>
                   </td>
                   <td className="p-4">
                     <p className="text-sm">
-                      Jl. Sudirman No. sad Jl. Sudirman No. sad Jl. Sudirman No.
-                      sad Jl. Sudirman No. sad {i + 1}
+                      {customer.kode_customer.toString().padStart(4, '0')}
                     </p>
                   </td>
                   <td className="p-4">
-                    <p className="text-sm">Jakarta</p>
+                    <p className="text-sm">
+                      {customer.telepon.toString().padStart(9, '0')}
+                    </p>
                   </td>
                   <td className="p-4">
-                    <p className="text-sm">021-555-000{i}</p>
+                    <p className="text-sm">
+                      {customer.alamat}
+                    </p>
                   </td>
                   <td className="p-4">
-                    <p className="text-sm">PIC {i + 1}</p>
+                    <p className="text-sm">{customer.kota}</p>
+                  </td>
+                  <td className="p-4">
+                    <p className="text-sm">021-555-000</p>
+                  </td>
+                  <td className="p-4">
+                    <p className="text-sm">{customer.pic}</p>
                   </td>
                   <td className="p-4">
                     <div className="flex items-center gap-3">

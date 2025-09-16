@@ -10,4 +10,15 @@ interface Transporter {
     nama_transporter: string;
 }
 
-export type { Barang, Transporter };
+interface Customer {
+    id: number;
+    kode_customer: number;
+    nama_customer: string;
+    alamat: string;
+    kota: string;
+    telepon: number;
+    facsimile: number;
+    pic: string;
+}
+
+export type { Barang, Transporter, Customer };
