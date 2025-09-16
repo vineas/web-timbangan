@@ -15,9 +15,7 @@ export const MasterProductsPage = () => {
 
     fetchBarang();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [supabase]);
-  console.log(barangs);
-  
+  }, [supabase]);  
 
   return (
     <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg ">
@@ -116,7 +114,7 @@ export const MasterProductsPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {barangs.map((barang, i) => (
+                    {barangs.map((barang) => (
                       <tr
                         key={barang.id}
                         className="hover:bg-slate-50 border-b border-slate-200 transition-colors duration-150"
