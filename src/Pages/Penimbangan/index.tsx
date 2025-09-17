@@ -85,42 +85,7 @@ export const PenimbanganPage = () => {
                   Timbang
                 </button>
               </div>
-
-              {/* Sopir & Operator */}
-              <div className="px-6">
-                <div className="mt-4 grid grid-cols-2">
-                  <h3 className="text-sm text-center font-bold text-gray-900">
-                    Operator
-                  </h3>
-                  <h3 className="text-sm font-bold text-center text-gray-900">
-                    Sopir
-                  </h3>
-                </div>
-                <div className="mt-4 grid grid-cols-2">
-                  <div className="flex items-center justify-center">
-                    <input
-                      placeholder="Nama Operator"
-                      id="operator"
-                      required
-                      type="text"
-                      disabled={!isEditing}
-                      className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <input
-                      placeholder="Nama Sopir"
-                      id="sopir"
-                      required
-                      type="text"
-                      disabled={!isEditing}
-                      className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
-                    />
-                  </div>
-                  {/* <h5 className="text-sm text-center text-gray-900">Admin</h5> */}
-                </div>
-              </div>
-
+              
               {/* Input Fields */}
               {/* Tipe Penimbangan, No Record, No Kendaraan */}
               <div className="grid gap-3 md:gap-6 mb-6 md:grid-cols-5 mt-5">
@@ -299,6 +264,41 @@ export const PenimbanganPage = () => {
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                 />
+              </div>
+
+              {/* Sopir & Operator */}
+              <div className="px-6">
+                <div className="mt-4 grid grid-cols-2">
+                  <h3 className="text-sm text-center font-bold text-gray-900">
+                    Operator
+                  </h3>
+                  <h3 className="text-sm font-bold text-center text-gray-900">
+                    Sopir
+                  </h3>
+                </div>
+                <div className="mt-4 grid grid-cols-2">
+                  <div className="flex items-center justify-center">
+                    <input
+                      placeholder="Nama Operator"
+                      id="operator"
+                      required
+                      type="text"
+                      disabled={!isEditing}
+                      className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <input
+                      placeholder="Nama Sopir"
+                      id="sopir"
+                      required
+                      type="text"
+                      disabled={!isEditing}
+                      className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
+                    />
+                  </div>
+                  {/* <h5 className="text-sm text-center text-gray-900">Admin</h5> */}
+                </div>
               </div>
 
               {/* Simpan Button */}
