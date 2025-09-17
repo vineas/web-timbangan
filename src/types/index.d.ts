@@ -21,4 +21,8 @@ interface Customer {
     pic: string;
 }
 
-export type { Barang, Transporter, Customer };
+type WeightDisplayProps = {
+    weight: number;
+};
+
+export type { Barang, Transporter, Customer, WeightDisplayProps };

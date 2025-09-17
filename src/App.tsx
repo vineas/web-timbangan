@@ -19,8 +19,8 @@ function App() {
             <Routes>
               <Route path="/" element={<PenimbanganPage />} />
               <Route path="/penimbangan" element={<PenimbanganPage />} />
-              <Route path="/master-product" element={<MasterProductsPage />} />
-              <Route path="/suplier-customer" element={<CustomerPage />} />
+              <Route path="/barang" element={<MasterProductsPage />} />
+              <Route path="/suplier" element={<CustomerPage />} />
               <Route path="/transporter" element={<TransporterPage />} />
             </Routes>
           </main>

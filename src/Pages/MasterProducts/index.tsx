@@ -38,7 +38,7 @@ export const MasterProductsPage = () => {
     e.preventDefault();
 
     if (editBarangs) {
-      // 🔄 UPDATE data
+      // update data
       const { error } = await supabase
         .from("barang")
         .update({
@@ -192,7 +192,7 @@ export const MasterProductsPage = () => {
                   focus:ring-4 focus:ring-blue-300 focus:outline-none
                   shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                 >
-                  {editBarangs ? "Update" : "Save"}
+                  {editBarangs ? "Perbarui" : "Simpan"}
                 </button>
                 {editBarangs && (
                   <button
@@ -200,7 +200,7 @@ export const MasterProductsPage = () => {
                     onClick={handleCancel}
                     className="bg-gray-400 text-white px-4 py-2 rounded-full"
                   >
-                    Cancel
+                    Batalkan
                   </button>
                 )}
               </div>

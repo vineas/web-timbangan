@@ -54,12 +54,12 @@ export const SidebarComponent = () => {
         <MenuItem icon={<FaWeight />} component={<Link to="/penimbangan" />}>
           Penimbangan
         </MenuItem>
-        <MenuItem icon={<FaBox />} component={<Link to="/master-product" />}>
+        <MenuItem icon={<FaBox />} component={<Link to="/barang" />}>
           Master Product
         </MenuItem>
         <MenuItem
           icon={<FaUsers />}
-          component={<Link to="/suplier-customer" />}
+          component={<Link to="/suplier" />}
         >
           Suplier/Customer
         </MenuItem>
