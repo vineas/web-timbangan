@@ -29,8 +29,8 @@ export const PenimbanganPage = () => {
     <div className="container mx-auto">
       <div className="bg-white rounded-xl shadow-lg p-5 md:p-8 w-full">
         <div className="flex items-center justify-center">
-          <div className="max-w-xl px-13 py-15 md:px-33 md:py-25  bg-black">
-            <h2 className="text-5xl font-bold text-gray-white flex justify-between">
+          <div className="max-w-xl px-13 py-15 md:px-33 md:py-25 bg-black">
+            <h2 className="text-5xl font-bold text-white flex justify-between">
               2455 kg
             </h2>
           </div>
