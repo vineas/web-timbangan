@@ -5,51 +5,126 @@ import Alert from "@mui/material/Alert";
 import Collapse from "@mui/material/Collapse";
 
 export const MasterProductsPage = () => {
-  // Get data barang from supabase
-const [barangs, setBarangs] = useState<Barang[]>([]);
-const [insertKodeBarangs, setInsertKodeBarangs] = useState("");
-const [insertBarangs, setInsertBarangs] = useState("");
+  // CRUD Barang
+  const [barangs, setBarangs] = useState<Barang[]>([]);
+  const [insertKodeBarangs, setInsertKodeBarangs] = useState("");
+  const [insertBarangs, setInsertBarangs] = useState("");
+  const [editBarangs, setEditBarangs] = useState<number | null>(null);
 
-// 🔔 Alert
-const [open, setOpen] = useState(false);
-const [message, setMessage] = useState("");
-const [severity, setSeverity] = useState<"success" | "error">("success");
-
-useEffect(() => {
-  const fetchBarang = async () => {
-    const { data, error } = await supabase.from("barang").select("*");
-    if (error) console.error("error: ", error);
-    else setBarangs(data);
+  // Edit barang from supabase
+  const handleEdit = (barang: Barang) => {
+    setEditBarangs(barang.id); // simpan id yang lagi diedit
+    setInsertKodeBarangs(barang.kode_barang.toString());
+    setInsertBarangs(barang.nama_barang);
   };
-  fetchBarang();
-}, []); // 👈 cukup kosong, tidak perlu [supabase]
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  // Alert
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState<"success" | "error">("success");
 
-  const { data, error } = await supabase
-    .from("barang")
-    .insert({ kode_barang: insertKodeBarangs, nama_barang: insertBarangs })
-    .select(); // 👈 penting biar dapat data yang baru dimasukkan
+  // Get data barang from supabase
+  useEffect(() => {
+    const fetchBarang = async () => {
+      const { data, error } = await supabase.from("barang").select("*");
+      if (error) console.error("error: ", error);
+      else setBarangs(data);
+    };
+    fetchBarang();
+  }, []);
 
-  if (error) {
-    setMessage("Gagal menambahkan barang: " + error.message);
-    setSeverity("error");
-    setOpen(true);
-  } else {
-    setMessage("Berhasil menambahkan barang");
-    setSeverity("success");
-    setOpen(true);
+  // Insert and Update data to supabase
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    // ✅ update tabel tanpa reload
-    if (data) {
-      setBarangs((prev) => [...prev, ...data]);
+    if (editBarangs) {
+      // 🔄 UPDATE data
+      const { error } = await supabase
+        .from("barang")
+        .update({
+          kode_barang: insertKodeBarangs,
+          nama_barang: insertBarangs,
+        })
+        .eq("id", editBarangs);
+
+      if (error) {
+        setMessage("Gagal update barang: " + error.message);
+        setSeverity("error");
+        setOpen(true);
+      } else {
+        setMessage("Berhasil update barang");
+        setSeverity("success");
+        setOpen(true);
+
+        // update state agar tabel langsung berubah
+        setBarangs((prev) =>
+          prev.map((item) =>
+            item.id === editBarangs
+              ? ({
+                  ...item,
+                  kode_barang: Number(insertKodeBarangs),
+                  nama_barang: String(insertBarangs),
+                } as Barang)
+              : item
+          )
+        );
+
+        // reset
+        setEditBarangs(null);
+        setInsertKodeBarangs("");
+        setInsertBarangs("");
+      }
+    } else {
+      // ➕ INSERT data baru
+      const { data, error } = await supabase
+        .from("barang")
+        .insert({
+          kode_barang: insertKodeBarangs,
+          nama_barang: insertBarangs,
+        })
+        .select();
+
+      if (error) {
+        setMessage("Gagal menambahkan barang: " + error.message);
+        setSeverity("error");
+        setOpen(true);
+      } else {
+        setMessage("Berhasil menambahkan barang");
+        setSeverity("success");
+        setOpen(true);
+
+        if (data) {
+          setBarangs((prev) => [...prev, ...data]);
+        }
+
+        setInsertKodeBarangs("");
+        setInsertBarangs("");
+      }
     }
+  };
 
+  const handleCancel = () => {
     setInsertKodeBarangs("");
     setInsertBarangs("");
-  }
-};
+    setEditBarangs(null);
+  };
+
+  // Delete data from supabase
+  const handleDelete = async (id: number) => {
+    const { error } = await supabase.from("barang").delete().eq("id", id);
+    if (error) {
+      setMessage("Gagal menghapus barang: " + error.message);
+      setSeverity("error");
+      setOpen(true);
+    } else {
+      setMessage("Barang telah dihapus");
+      setSeverity("success");
+      setOpen(true);
+      // update tabel tanpa reload
+      setBarangs((prev) => prev.filter((barang) => barang.id !== id));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg ">
       <div className="max-w-7xl mx-auto">
@@ -117,16 +192,22 @@ const handleSubmit = async (e: React.FormEvent) => {
                   focus:ring-4 focus:ring-blue-300 focus:outline-none
                   shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                 >
-                  Simpan
+                  {editBarangs ? "Update" : "Save"}
                 </button>
+                {editBarangs && (
+                  <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="bg-gray-400 text-white px-4 py-2 rounded-full"
+                  >
+                    Cancel
+                  </button>
+                )}
               </div>
             </form>
             {/* Alert hanya tampil kalau open = true */}
             <Collapse in={open}>
-              <Alert
-                severity={severity}
-                onClose={() => setOpen(false)}
-              >
+              <Alert severity={severity} onClose={() => setOpen(false)}>
                 {message}
               </Alert>
             </Collapse>
@@ -172,10 +253,16 @@ const handleSubmit = async (e: React.FormEvent) => {
                         </td>
                         <td className="w-2/5 p-4">
                           <div className="flex items-center gap-3">
-                            <button className="text-sm font-semibold text-blue-600 hover:text-blue-800 px-3 py-1 rounded hover:bg-blue-50 transition-colors duration-150">
+                            <button
+                              onClick={() => handleEdit(barang)}
+                              className="text-sm font-semibold text-blue-600 hover:text-blue-800 px-3 py-1 rounded hover:bg-blue-50 transition-colors duration-150"
+                            >
                               Edit
                             </button>
-                            <button className="text-sm font-semibold text-red-600 hover:text-red-800 px-3 py-1 rounded hover:bg-red-50 transition-colors duration-150">
+                            <button
+                              onClick={() => handleDelete(barang.id)}
+                              className="text-sm font-semibold text-red-600 hover:text-red-800 px-3 py-1 rounded hover:bg-red-50 transition-colors duration-150"
+                            >
                               Delete
                             </button>
                           </div>
