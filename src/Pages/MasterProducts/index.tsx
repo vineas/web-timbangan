@@ -1,24 +1,55 @@
 import { useEffect, useState } from "react";
 import type { Barang } from "../../types";
 import supabase from "../../lib/db";
+import Alert from "@mui/material/Alert";
+import Collapse from "@mui/material/Collapse";
 
 export const MasterProductsPage = () => {
   // Get data barang from supabase
-  const [barangs, setBarangs] = useState<Barang[]>([]);
-  useEffect(() => {
-    const fetchBarang = async () => {
-      const { data, error } = await supabase.from("barang").select("*");
+const [barangs, setBarangs] = useState<Barang[]>([]);
+const [insertKodeBarangs, setInsertKodeBarangs] = useState("");
+const [insertBarangs, setInsertBarangs] = useState("");
 
-      if (error) console.error("error: ", error);
-      else setBarangs(data);
-    };
+// 🔔 Alert
+const [open, setOpen] = useState(false);
+const [message, setMessage] = useState("");
+const [severity, setSeverity] = useState<"success" | "error">("success");
 
-    fetchBarang();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [supabase]);
+useEffect(() => {
+  const fetchBarang = async () => {
+    const { data, error } = await supabase.from("barang").select("*");
+    if (error) console.error("error: ", error);
+    else setBarangs(data);
+  };
+  fetchBarang();
+}, []); // 👈 cukup kosong, tidak perlu [supabase]
 
-  
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
+  const { data, error } = await supabase
+    .from("barang")
+    .insert({ kode_barang: insertKodeBarangs, nama_barang: insertBarangs })
+    .select(); // 👈 penting biar dapat data yang baru dimasukkan
+
+  if (error) {
+    setMessage("Gagal menambahkan barang: " + error.message);
+    setSeverity("error");
+    setOpen(true);
+  } else {
+    setMessage("Berhasil menambahkan barang");
+    setSeverity("success");
+    setOpen(true);
+
+    // ✅ update tabel tanpa reload
+    if (data) {
+      setBarangs((prev) => [...prev, ...data]);
+    }
+
+    setInsertKodeBarangs("");
+    setInsertBarangs("");
+  }
+};
   return (
     <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg ">
       <div className="max-w-7xl mx-auto">
@@ -26,71 +57,79 @@ export const MasterProductsPage = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
-              Daftar Product
+              Daftar Barang
             </h2>
           </div>
 
           {/* Form Section */}
           <div className="mb-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
-              <div className="xl:col-start-1">
-                <label
-                  htmlFor="kode_product"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Kode
-                </label>
-                <input
-                  type="text"
-                  id="kode_product"
-                  name="kode_product"
-                  className="border-2 border-gray-300 text-gray-900 text-sm rounded-full 
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
+                <div className="xl:col-start-1">
+                  <label
+                    htmlFor="kode_barang"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Kode
+                  </label>
+                  <input
+                    type="text"
+                    value={insertKodeBarangs}
+                    onChange={(e) => setInsertKodeBarangs(e.target.value)}
+                    id="kode_barang"
+                    name="kode_barang"
+                    className="border-2 border-gray-300 text-gray-900 text-sm rounded-full 
                     focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-3
                     hover:border-gray-400 transition-colors duration-200"
-                  placeholder="0001"
-                  maxLength={4}
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="nama_barang"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Nama Barang
-                </label>
-                <input
-                  type="text"
-                  id="nama_barang"
-                  name="nama_barang"
-                  className="border-2 border-gray-300 text-gray-900 text-sm rounded-full 
+                    placeholder="0001"
+                    maxLength={4}
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="nama_barang"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Nama Barang
+                  </label>
+                  <input
+                    value={insertBarangs}
+                    onChange={(e) => setInsertBarangs(e.target.value)}
+                    type="text"
+                    id="nama_barang"
+                    name="nama_barang"
+                    className="border-2 border-gray-300 text-gray-900 text-sm rounded-full 
                     focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-3
                     hover:border-gray-400 transition-colors duration-200"
-                  placeholder="Beras"
-                  required
-                />
+                    placeholder="Beras"
+                    required
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <button
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium 
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium 
                   rounded-full px-8 py-3 transition-colors duration-200 
                   focus:ring-4 focus:ring-blue-300 focus:outline-none
                   shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                >
+                  Simpan
+                </button>
+              </div>
+            </form>
+            {/* Alert hanya tampil kalau open = true */}
+            <Collapse in={open}>
+              <Alert
+                severity={severity}
+                onClose={() => setOpen(false)}
               >
-                Simpan
-              </button>
-              <button
-                className="bg-gray-600 hover:bg-gray-700 text-white font-medium 
-                  rounded-full px-8 py-3 transition-colors duration-200 
-                  focus:ring-4 focus:ring-gray-300 focus:outline-none
-                  shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-              >
-                Cancel
-              </button>
-            </div>
+                {message}
+              </Alert>
+            </Collapse>
           </div>
 
           {/* Table Section */}
