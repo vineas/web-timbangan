@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Barang } from "../../types";
+import type { Barang, Customer, Transporter } from "../../types";
 import supabase from "../../lib/db";
 
 export const PenimbanganPage = () => {
@@ -15,13 +15,46 @@ export const PenimbanganPage = () => {
   const [selected, setSelected] = useState("");
   useEffect(() => {
     const fetchBarang = async () => {
-      const { data, error } = await supabase.from("barang").select("*");
-
+      const { data, error } = await supabase
+        .from("barang")
+        .select(`id, nama_barang`);
       if (error) console.error("error: ", error);
-      else setBarangs(data);
+      else setBarangs(data as Barang[]);
     };
 
     fetchBarang();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase]);
+
+  // Get data customer from supabase
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [selectedCustomer, setSelectedCustomer] = useState("");
+  useEffect(() => {
+    const fetchCustomer = async () => {
+      const { data, error } = await supabase
+        .from("customer")
+        .select(`id, nama_customer`);
+      if (error) console.error("error: ", error);
+      else setCustomers(data as Customer[]);
+    };
+
+    fetchCustomer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase]);
+
+  // Get data transporter from supabase
+  const [transporters, setTransporters] = useState<Transporter[]>([]);
+  const [selectedTransporter, setSelectedTransporter] = useState("");
+  useEffect(() => {
+    const fetchTransporter = async () => {
+      const { data, error } = await supabase
+        .from("transporter")
+        .select(`id, nama_transporter`);
+      if (error) console.error("error: ", error);
+      else setTransporters(data as Transporter[]);
+    };
+
+    fetchTransporter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabase]);
 
@@ -201,6 +234,8 @@ export const PenimbanganPage = () => {
                   </label>
                   <select
                     title="customer"
+                    value={selectedCustomer}
+                    onChange={(e) => setSelectedCustomer(e.target.value)}
                     id="customer"
                     disabled={!isEditing}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
@@ -209,10 +244,11 @@ export const PenimbanganPage = () => {
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="Customer"
                   >
-                    <option value="normal">Customer 1</option>
-                    <option value="reflaksipersen">Customer 2</option>
-                    <option value="hargasatuan">Customer 3</option>
-                    <option value="reflaksikg">Customer 4</option>
+                    {customers.map((customer) => (
+                      <option key={customer.id} value={customer.id}>
+                        {customer.nama_customer}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -225,6 +261,9 @@ export const PenimbanganPage = () => {
                     Transporter
                   </label>
                   <select
+                    title="transporter"
+                    value={selectedTransporter}
+                    onChange={(e) => setSelectedTransporter(e.target.value)}
                     id="transporter"
                     disabled={!isEditing}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
@@ -233,10 +272,11 @@ export const PenimbanganPage = () => {
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="Transporter"
                   >
-                    <option value="normal">Transporter 1</option>
-                    <option value="reflaksipersen">Transporter 2</option>
-                    <option value="hargasatuan">Transporter 3</option>
-                    <option value="reflaksikg">Transporter 4</option>
+                    {transporters.map((transporter) => (
+                      <option key={transporter.id} value={transporter.id}>
+                        {transporter.nama_transporter}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -282,15 +322,15 @@ export const PenimbanganPage = () => {
           <div className="mt-6 w-full text-left table-auto border-collapse">
             <div className="relative overflow-x-auto">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead className="text-gray-50 font-bold text-xs uppercase bg-gray-800 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
-                    <th scope="col" className="px-6 py-3 text-gray-200 ">
+                    <th scope="col" className="px-6 py-3">
                       Tanggal & Jam
                     </th>
-                    <th scope="col" className="px-6 py-3 text-gray-200 ">
+                    <th scope="col" className="px-6 py-3">
                       Penimbangan
                     </th>
-                    <th scope="col" className="px-6 py-3 text-gray-200 ">
+                    <th scope="col" className="px-6 py-3">
                       Berat
                     </th>
                   </tr>
