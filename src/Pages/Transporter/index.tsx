@@ -194,10 +194,10 @@ export const TransporterPage = () => {
                   rounded-full px-8 py-3 transition-colors duration-200 
                   focus:ring-4 focus:ring-blue-300 focus:outline-none
                   shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                  {editTransporterId ? "Update" : "Tambah"}
+                  {editTransporterId ? "Perbarui" : "Simpan"}
                 </button>
                 {editTransporterId && (
-                  <button onClick={handleCancel}>Batal</button>
+                  <button onClick={handleCancel} className="bg-gray-400 text-white px-4 py-2 rounded-full">Batalkan</button>
                 )}
               </div>
             </div>
