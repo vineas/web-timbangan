@@ -75,7 +75,7 @@ export const MasterProductsPage = () => {
         setInsertBarangs("");
       }
     } else {
-      // ➕ INSERT data baru
+      // Insert data ke supabase
       const { data, error } = await supabase
         .from("barang")
         .insert({
