@@ -3,19 +3,21 @@ import type { Barang } from "../../types";
 import supabase from "../../lib/db";
 
 export const MasterProductsPage = () => {
+  // Get data barang from supabase
   const [barangs, setBarangs] = useState<Barang[]>([]);
-
-  useEffect(()=>{
+  useEffect(() => {
     const fetchBarang = async () => {
-      const {data, error} = await supabase.from('barang').select('*');
+      const { data, error } = await supabase.from("barang").select("*");
 
-      if(error) console.error('error: ', error);
-      else setBarangs(data)
+      if (error) console.error("error: ", error);
+      else setBarangs(data);
     };
 
     fetchBarang();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [supabase]);  
+  }, [supabase]);
+
+  
 
   return (
     <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg ">
@@ -126,7 +128,7 @@ export const MasterProductsPage = () => {
                         </td>
                         <td className="w-1/5 p-4">
                           <div className="text-sm text-gray-600 break-words">
-                            {String(barang.kode_barang).padStart(4, '0')}
+                            {String(barang.kode_barang).padStart(4, "0")}
                           </div>
                         </td>
                         <td className="w-2/5 p-4">

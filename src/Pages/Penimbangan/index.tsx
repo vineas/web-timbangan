@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { Barang } from "../../types";
+import supabase from "../../lib/db";
 
 export const PenimbanganPage = () => {
+  // Timbang function
   const [isEditing, setIsEditing] = useState(false);
-
   const handleTimbang = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsEditing(true); // aktifkan input setelah klik Timbang
   };
+
+  // Get data barang from supabase
+  const [barangs, setBarangs] = useState<Barang[]>([]);
+  const [selected, setSelected] = useState("");
+  useEffect(() => {
+    const fetchBarang = async () => {
+      const { data, error } = await supabase.from("barang").select("*");
+
+      if (error) console.error("error: ", error);
+      else setBarangs(data);
+    };
+
+    fetchBarang();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase]);
+
   return (
     <div className="container mx-auto">
       <div className="bg-white rounded-xl shadow-lg p-5 md:p-8 w-full">
@@ -22,29 +40,14 @@ export const PenimbanganPage = () => {
           {/* Form */}
           <div>
             <form>
-              {/* Button Ganti Operator dan Timbang */}
+              {/* Button Timbang */}
               <div className="flex flex-col md:flex-row justify-center items-center md:items-start">
-                {/* <button
-                  data-modal-target="crud-modal"
-                  data-modal-toggle="crud-modal"
-                  type="button"
-                  className="mt-8 text-white bg-blue-700 hover:bg-blue-800 
-              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
-              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
-              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 
-              disabled:opacity-50"
-                >
-                  Ganti Operator
-                </button> */}
-
-                {/* Modal */}
-
                 <button
                   onClick={handleTimbang}
-                  className="md:ml-3 mt-8 text-white bg-blue-700 hover:bg-blue-800 
-              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
-              rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
-              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="mt-8 md:ml-3 w-full sm:w-auto px-5 py-2.5 text-sm font-semibold text-white
+         bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+         rounded-full text-center 
+         dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Timbang
                 </button>
@@ -63,6 +66,7 @@ export const PenimbanganPage = () => {
                 <div className="mt-4 grid grid-cols-2">
                   <div className="flex items-center justify-center">
                     <input
+                      placeholder="Nama Operator"
                       id="operator"
                       required
                       type="text"
@@ -72,6 +76,7 @@ export const PenimbanganPage = () => {
                   </div>
                   <div className="flex items-center justify-center">
                     <input
+                      placeholder="Nama Sopir"
                       id="sopir"
                       required
                       type="text"
@@ -96,6 +101,7 @@ export const PenimbanganPage = () => {
                     Tipe Penimbangan
                   </label>
                   <select
+                    title="tipe_penimbangan"
                     disabled={!isEditing}
                     id="first_name"
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
@@ -121,8 +127,7 @@ export const PenimbanganPage = () => {
                   <input
                     type="number"
                     id="record"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-300 text-gray-900 text-sm rounded-full 
-                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="rounded-lg border border-gray-300 text-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="0001"
                     disabled
                     required
@@ -163,19 +168,25 @@ export const PenimbanganPage = () => {
                   >
                     Nama Barang
                   </label>
+
                   <select
+                    title="nama_barang"
                     id="product"
                     disabled={!isEditing}
+                    value={selected}
+                    onChange={(e) => setSelected(e.target.value)}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
               dark:border-gray-600 dark:placeholder-gray-400  
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="Barang"
                   >
-                    <option value="normal">Product 1</option>
-                    <option value="reflaksipersen">Product 2</option>
-                    <option value="hargasatuan">Product 3</option>
-                    <option value="reflaksikg">Product 4</option>
+                    {/* <option value="">-- Pilih Barang --</option> */}
+                    {barangs.map((barang) => (
+                      <option key={barang.id} value={barang.id}>
+                        {barang.nama_barang}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -189,6 +200,7 @@ export const PenimbanganPage = () => {
                     Nama Customer
                   </label>
                   <select
+                    title="customer"
                     id="customer"
                     disabled={!isEditing}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
@@ -255,7 +267,7 @@ export const PenimbanganPage = () => {
                   type="submit"
                   disabled={!isEditing}
                   className="mt-4 text-white bg-blue-700 hover:bg-blue-800 
-              focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
+              focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold 
               rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
               dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 
               disabled:opacity-50"
