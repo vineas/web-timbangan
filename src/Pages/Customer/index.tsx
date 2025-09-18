@@ -45,7 +45,7 @@ export const CustomerPage = () => {
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState<"success" | "error">("success");
 
-  // Get data barang from supabase
+  // Get data supplier/customer from supabase
   useEffect(() => {
     const fetchSupplierCustomers = async () => {
       const { data, error } = await supabase
@@ -77,11 +77,11 @@ export const CustomerPage = () => {
         .eq("id", editSupplierCustomers);
 
       if (error) {
-        setMessage("Gagal update barang: " + error.message);
+        setMessage("Gagal update supplier/customer: " + error.message);
         setSeverity("error");
         setOpen(true);
       } else {
-        setMessage("Berhasil update barang");
+        setMessage("Berhasil update supplier/customer");
         setSeverity("success");
         setOpen(true);
 
@@ -129,11 +129,11 @@ export const CustomerPage = () => {
         .select();
 
       if (error) {
-        setMessage("Gagal menambahkan barang: " + error.message);
+        setMessage("Gagal menambahkan supplier/customer: " + error.message);
         setSeverity("error");
         setOpen(true);
       } else {
-        setMessage("Berhasil menambahkan barang");
+        setMessage("Berhasil menambahkan supplier/customer");
         setSeverity("success");
         setOpen(true);
 
@@ -170,11 +170,11 @@ export const CustomerPage = () => {
       .delete()
       .eq("id", id);
     if (error) {
-      setMessage("Gagal menghapus barang: " + error.message);
+      setMessage("Gagal menghapus supplier/customer: " + error.message);
       setSeverity("error");
       setOpen(true);
     } else {
-      setMessage("Barang telah dihapus");
+      setMessage("Supplier/customer telah dihapus");
       setSeverity("success");
       setOpen(true);
       // update tabel tanpa reload
