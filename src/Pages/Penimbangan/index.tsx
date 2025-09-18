@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Barang, Customer, Transporter } from "../../types";
+import type { Barang, SupplierCustomer, Transporter } from "../../types";
 import supabase from "../../lib/db";
 import { WeightDisplay } from "../../components/WeightDisplay";
 
@@ -28,15 +28,15 @@ export const PenimbanganPage = () => {
   }, [supabase]);
 
   // Get data customer from supabase
-  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [customers, setCustomers] = useState<SupplierCustomer[]>([]);
   const [selectedCustomer, setSelectedCustomer] = useState("");
   useEffect(() => {
     const fetchCustomer = async () => {
       const { data, error } = await supabase
-        .from("customer")
-        .select(`id, nama_customer`);
+        .from("supplier_customer")
+        .select(`id, nama_supplier_customer`);
       if (error) console.error("error: ", error);
-      else setCustomers(data as Customer[]);
+      else setCustomers(data as SupplierCustomer[]);
     };
 
     fetchCustomer();
@@ -213,7 +213,7 @@ export const PenimbanganPage = () => {
                   >
                     {customers.map((customer) => (
                       <option key={customer.id} value={customer.id}>
-                        {customer.nama_customer}
+                        {customer.nama_supplier_customer}
                       </option>
                     ))}
                   </select>
