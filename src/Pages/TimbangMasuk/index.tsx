@@ -3,18 +3,20 @@ import supabase from "../../lib/db";
 import type { Penimbangan } from "../../types";
 
 export default function TimbangMasuk() {
-    // Get data supplier/customer from supabase
-    const [timbangMasuk, setTimbangMasuk] = useState<Penimbangan[]>([]);
-      useEffect(() => {
-        const fetchTimbangMasuk = async () => {
-          const { data, error } = await supabase
-            .from("penimbangan")
-            .select(`id, no_record, nama_operator, nama_sopir,  no_kendaraan, berat_timbang_masuk, waktu_timbang_masuk`);
-          if (error) console.error("error: ", error);
-          else setTimbangMasuk(data);
-        };
-        fetchTimbangMasuk();
-      }, []);
+  // Get data supplier/customer from supabase
+  const [timbangMasuk, setTimbangMasuk] = useState<Penimbangan[]>([]);
+  useEffect(() => {
+    const fetchTimbangMasuk = async () => {
+      const { data, error } = await supabase
+        .from("penimbangan")
+        .select(
+          `id, no_record, nama_operator, nama_sopir,  no_kendaraan, berat_timbang_masuk, waktu_timbang_masuk`
+        );
+      if (error) console.error("error: ", error);
+      else setTimbangMasuk(data as Penimbangan[]);
+    };
+    fetchTimbangMasuk();
+  }, []);
   return (
     <div className="container">
       <div className="p-6 bg-white shadow-sm rounded-lg">
@@ -73,45 +75,57 @@ export default function TimbangMasuk() {
                 </tr>
               </thead>
               <tbody>
-                {timbangMasuk.map((item) => (
-                <tr className="hover:bg-slate-50 border-b border-slate-200">
-                  <td className="p-4">
-                    <p className="text-sm font-bold">
-                        {new Date(item.waktu_timbang_masuk).toLocaleDateString("en-GB")}
-                    </p>
-                  </td>
-                  <td className="p-4">
-                    <p className="text-sm">
-                        {item.no_record}
-                    </p>
-                  </td>
-                  <td className="p-4">
-                    <p className="text-sm">
-                        {item.no_kendaraan}
-                    </p>
-                  </td>
-                  <td className="p-4">
-                    <p className="text-sm">
-                        {item.berat_timbang_masuk} kg
-                    </p>
-                  </td>
-                  <td className="p-4">
-                    <p className="text-sm">
-                        {new Date(item.waktu_timbang_masuk).toLocaleDateString("en-GB")}
-                    </p>
-                  </td>
-                  <td className="p-4">
-                    <p className="text-sm">
-                        {new Date(item.waktu_timbang_masuk).toLocaleTimeString("en-GB")}
-                    </p>
-                  </td>
-                  <td className="p-4">
-                    <p className="text-sm">
-                        {item.nama_operator}
-                    </p>
-                  </td>
-                </tr>
-                ))}
+                {timbangMasuk
+                  .filter(
+                    (item) =>
+                      item.berat_timbang_masuk
+                  )
+                  .map((item) => (
+                    <tr
+                      className="hover:bg-slate-50 border-b border-slate-200"
+                      key={item.no_record}
+                    >
+                      <td className="p-4">
+                        <p className="text-sm font-bold">
+                          {item.waktu_timbang_masuk
+                            ? new Date(
+                                item.waktu_timbang_masuk
+                              ).toLocaleDateString("en-GB")
+                            : ""}
+                        </p>
+                      </td>
+                      <td className="p-4">
+                        <p className="text-sm">{item.no_record}</p>
+                      </td>
+                      <td className="p-4">
+                        <p className="text-sm">{item.no_kendaraan}</p>
+                      </td>
+                      <td className="p-4">
+                        <p className="text-sm">{item.berat_timbang_masuk} kg</p>
+                      </td>
+                      <td className="p-4">
+                        <p className="text-sm">
+                          {item.waktu_timbang_masuk
+                            ? new Date(
+                                item.waktu_timbang_masuk
+                              ).toLocaleDateString("en-GB")
+                            : ""}
+                        </p>
+                      </td>
+                      <td className="p-4">
+                        <p className="text-sm">
+                          {item.waktu_timbang_masuk
+                            ? new Date(
+                                item.waktu_timbang_masuk
+                              ).toLocaleTimeString("en-GB")
+                            : ""}
+                        </p>
+                      </td>
+                      <td className="p-4">
+                        <p className="text-sm">{item.nama_operator}</p>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

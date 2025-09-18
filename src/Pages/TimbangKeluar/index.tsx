@@ -13,7 +13,7 @@ export default function TimbangKeluar() {
           `id, no_record, nama_operator, nama_sopir,  no_kendaraan, berat_timbang_keluar, waktu_timbang_keluar`
         );
       if (error) console.error("error: ", error);
-      else setTimbangKeluar(data);
+      else setTimbangKeluar(data as Penimbangan[]);
     };
     fetchTimbangKeluar();
   }, []);
@@ -74,7 +74,7 @@ export default function TimbangKeluar() {
                   .filter(
                     (item) =>
                       item.berat_timbang_keluar && item.waktu_timbang_keluar
-                  ) // hanya data valid
+                  )
                   .map((item) => (
                     <tr
                       className="hover:bg-slate-50 border-b border-slate-200"

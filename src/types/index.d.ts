@@ -1,6 +1,6 @@
 interface Penimbangan {
     id: number;
-    no_record: string;
+    no_record: number;
     nama_operator: string;
     nama_sopir: string;
     no_kendaraan: string;
