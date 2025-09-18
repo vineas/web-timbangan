@@ -7,14 +7,14 @@ import Collapse from "@mui/material/Collapse";
 export const MasterProductsPage = () => {
   // CRUD Barang
   const [barangs, setBarangs] = useState<Barang[]>([]);
-  const [insertKodeBarangs, setInsertKodeBarangs] = useState("");
+  const [insertKodeBarangs, setInsertKodeBarangs] = useState<number | null>(null);
   const [insertBarangs, setInsertBarangs] = useState("");
   const [editBarangs, setEditBarangs] = useState<number | null>(null);
 
   // Edit barang from supabase
   const handleEdit = (barang: Barang) => {
     setEditBarangs(barang.id); // simpan id yang lagi diedit
-    setInsertKodeBarangs(barang.kode_barang.toString());
+    setInsertKodeBarangs(barang.kode_barang);
     setInsertBarangs(barang.nama_barang);
   };
 
@@ -71,7 +71,7 @@ export const MasterProductsPage = () => {
 
         // reset
         setEditBarangs(null);
-        setInsertKodeBarangs("");
+        setInsertKodeBarangs(0);
         setInsertBarangs("");
       }
     } else {
@@ -97,14 +97,14 @@ export const MasterProductsPage = () => {
           setBarangs((prev) => [...prev, ...data]);
         }
 
-        setInsertKodeBarangs("");
+        setInsertKodeBarangs(0);
         setInsertBarangs("");
       }
     }
   };
 
   const handleCancel = () => {
-    setInsertKodeBarangs("");
+    setInsertKodeBarangs(0);
     setInsertBarangs("");
     setEditBarangs(null);
   };
@@ -149,8 +149,8 @@ export const MasterProductsPage = () => {
                   </label>
                   <input
                     type="number"
-                    value={insertKodeBarangs}
-                    onChange={(e) => setInsertKodeBarangs(e.target.value)}
+                    value={insertKodeBarangs ?? ""}
+                    onChange={(e) => setInsertKodeBarangs(Number(e.target.value))}
                     id="kode_barang"
                     name="kode_barang"
                     className="border-2 border-gray-300 text-gray-900 text-sm rounded-full 

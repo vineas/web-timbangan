@@ -10,10 +10,10 @@ interface Transporter {
     nama_transporter: string;
 }
 
-interface Customer {
+interface SupplierCustomer {
     id: number;
-    kode_customer: number;
-    nama_customer: string;
+    kode_supplier_customer: number;
+    nama_supplier_customer: string;
     alamat: string;
     kota: string;
     telepon: number;
@@ -25,4 +25,4 @@ type WeightDisplayProps = {
     weight: number;
 };
 
-export type { Barang, Transporter, Customer, WeightDisplayProps };
+export type { Barang, Transporter, SupplierCustomer, WeightDisplayProps };

@@ -7,7 +7,7 @@ import Collapse from "@mui/material/Collapse";
 export const TransporterPage = () => {
   // CRUD Transporter
   const [transporters, setTransporters] = useState<Transporter[]>([]);
-  const [insertKodeTransporter, setInsertKodeTransporter] = useState("");
+  const [insertKodeTransporter, setInsertKodeTransporter] = useState<number | null>(null);
   const [insertNamaTransporter, setInsertNamaTransporter] = useState("");
   const [editTransporterId, setEditTransporterId] = useState<number | null>(
     null
@@ -16,7 +16,7 @@ export const TransporterPage = () => {
   // Edit transporter from supabase
   const handleEdit = (transporter: Transporter) => {
     setEditTransporterId(transporter.id);
-    setInsertKodeTransporter(transporter.kode_transporter.toString());
+    setInsertKodeTransporter(transporter.kode_transporter);
     setInsertNamaTransporter(transporter.nama_transporter);
   };
 
@@ -73,7 +73,7 @@ export const TransporterPage = () => {
 
         // reset
         setEditTransporterId(null);
-        setInsertKodeTransporter("");
+        setInsertKodeTransporter(0);
         setInsertNamaTransporter("");
       }
     } else {
@@ -99,14 +99,14 @@ export const TransporterPage = () => {
           setTransporters((prev) => [...prev, ...data]);
         }
 
-        setInsertKodeTransporter("");
+        setInsertKodeTransporter(0);
         setInsertNamaTransporter("");
       }
     }
   };
 
   const handleCancel = () => {
-    setInsertKodeTransporter("");
+    setInsertKodeTransporter(0);
     setInsertNamaTransporter("");
     setEditTransporterId(null);
   };
@@ -152,8 +152,8 @@ export const TransporterPage = () => {
                     Kode
                   </label>
                   <input
-                    value={insertKodeTransporter}
-                    onChange={(e) => setInsertKodeTransporter(e.target.value)}
+                    value={insertKodeTransporter ?? ""}
+                    onChange={(e) => setInsertKodeTransporter(Number(e.target.value))}
                     type="number"
                     id="kode_transporter"
                     name="kode_transporter"

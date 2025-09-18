@@ -59,9 +59,9 @@ export const SidebarComponent = () => {
         </MenuItem>
         <MenuItem
           icon={<FaUsers />}
-          component={<Link to="/suplier" />}
+          component={<Link to="/supplier-customer" />}
         >
-          Suplier/Customer
+          Supplier/Customer
         </MenuItem>
         <MenuItem icon={<FaTruck />} component={<Link to="/transporter" />}>
           Transporter
