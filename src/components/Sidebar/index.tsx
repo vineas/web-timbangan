@@ -25,21 +25,6 @@ export const SidebarComponent = () => {
       breakPoint="md"
       onBackdropClick={() => setToggled(false)}
     >
-      {/* <div className="p-2">
-        <button
-          className="p-2 bg-blue-600 text-white rounded-lg flex items-center gap-2 w-full"
-          onClick={() => {
-            if (window.innerWidth < 768) {
-              setToggled(!toggled);
-            } else {
-              setCollapsed(!collapsed);
-            }
-          }}
-        >
-          <FaBars />
-        </button>
-      </div> */}
-
       <Menu
         menuItemStyles={{
           button: {
@@ -51,9 +36,17 @@ export const SidebarComponent = () => {
         }}
         className="mt-12"
       >
-        <MenuItem icon={<FaWeight />} component={<Link to="/penimbangan" />}>
-          Penimbangan
-        </MenuItem>
+        <SubMenu icon={<FaWeight />} label="Penimbangan">
+          <MenuItem icon={<FaWeight />} component={<Link to="/penimbangan" />}>
+            Penimbangan I
+          </MenuItem>
+          <MenuItem
+            icon={<FaWeight />}
+            component={<Link to="/penimbangan-dua" />}
+          >
+            Penimbangan II
+          </MenuItem>
+        </SubMenu>
         <MenuItem icon={<FaBox />} component={<Link to="/barang" />}>
           Master Product
         </MenuItem>

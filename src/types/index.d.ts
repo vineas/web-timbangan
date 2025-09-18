@@ -1,3 +1,15 @@
+interface Penimbangan {
+    id: number;
+    no_record: string;
+    nama_operator: string;
+    nama_sopir: string;
+    no_kendaraan: string;
+    berat_timbang_masuk: number;
+    berat_timbang_keluar: number;
+    waktu_timbang_masuk: Date;
+    waktu_timbang_keluar: Date;
+}
+
 interface Barang {
     id: number;
     kode_barang: number;
@@ -25,4 +37,4 @@ type WeightDisplayProps = {
     weight: number;
 };
 
-export type { Barang, Transporter, SupplierCustomer, WeightDisplayProps };
+export type { Barang, Transporter, SupplierCustomer, WeightDisplayProps, Penimbangan };

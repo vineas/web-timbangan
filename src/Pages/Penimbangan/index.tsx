@@ -4,13 +4,6 @@ import supabase from "../../lib/db";
 import { WeightDisplay } from "../../components/WeightDisplay";
 
 export const PenimbanganPage = () => {
-  // Timbang function
-  const [isEditing, setIsEditing] = useState(false);
-  const handleTimbang = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    setIsEditing(true); // aktifkan input setelah klik Timbang
-  };
-
   // Get data barang from supabase
   const [barangs, setBarangs] = useState<Barang[]>([]);
   const [selected, setSelected] = useState("");
@@ -78,7 +71,7 @@ export const PenimbanganPage = () => {
               {/* Button Timbang */}
               <div className="flex flex-col md:flex-row justify-center items-center md:items-start">
                 <button
-                  onClick={handleTimbang}
+                  // onClick={}
                   className="mt-8 md:ml-3 w-full sm:w-auto px-5 py-2.5 text-sm font-semibold text-white
          bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
          rounded-full text-center 
@@ -102,7 +95,7 @@ export const PenimbanganPage = () => {
                   </label>
                   <select
                     title="tipe_penimbangan"
-                    disabled={!isEditing}
+                    // disabled={!isEditing}
                     id="first_name"
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
                 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
@@ -147,7 +140,7 @@ export const PenimbanganPage = () => {
                   <input
                     type="text"
                     id="no_kendaraan"
-                    disabled={!isEditing}
+                    // disabled={!isEditing}
                     className=" border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border 
               dark:border-gray-600 dark:placeholder-gray-400  
@@ -159,6 +152,44 @@ export const PenimbanganPage = () => {
               </div>
 
               {/* Nama Barang, Nama Customer, Transporter */}
+              {/* No Operator */}
+              <div className="mt-3">
+                <label
+                  htmlFor="operator"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Operator
+                </label>
+                <input
+                  type="text"
+                  id="operator"
+                  // disabled={!isEditing}
+                  className=" border-gray-300 text-gray-900 text-sm rounded-full 
+              focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border 
+              dark:border-gray-600 dark:placeholder-gray-400  
+              dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required
+                />
+              </div>
+              {/* No Sopir */}
+              <div className="mt-3">
+                <label
+                  htmlFor="sopir"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Sopir
+                </label>
+                <input
+                  type="text"
+                  id="sopir"
+                  // disabled={!isEditing}
+                  className=" border-gray-300 text-gray-900 text-sm rounded-full 
+              focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border 
+              dark:border-gray-600 dark:placeholder-gray-400  
+              dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required
+                />
+              </div>
               <div className="grid gap-3 md:gap-6 mb-6 md:grid-cols-1">
                 {/* Nama Barang */}
                 <div className="mt-3">
@@ -172,7 +203,7 @@ export const PenimbanganPage = () => {
                   <select
                     title="nama_barang"
                     id="product"
-                    disabled={!isEditing}
+                    // disabled={!isEditing}
                     value={selected}
                     onChange={(e) => setSelected(e.target.value)}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
@@ -204,7 +235,7 @@ export const PenimbanganPage = () => {
                     value={selectedCustomer}
                     onChange={(e) => setSelectedCustomer(e.target.value)}
                     id="customer"
-                    disabled={!isEditing}
+                    // disabled={!isEditing}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
               dark:border-gray-600 dark:placeholder-gray-400  
@@ -232,7 +263,7 @@ export const PenimbanganPage = () => {
                     value={selectedTransporter}
                     onChange={(e) => setSelectedTransporter(e.target.value)}
                     id="transporter"
-                    disabled={!isEditing}
+                    // disabled={!isEditing}
                     className=" border border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
               dark:border-gray-600 dark:placeholder-gray-400  
@@ -259,7 +290,7 @@ export const PenimbanganPage = () => {
                 <input
                   type="text"
                   id="no_dopo"
-                  disabled={!isEditing}
+                  // disabled={!isEditing}
                   className=" border-gray-300 text-gray-900 text-sm rounded-full 
               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border 
               dark:border-gray-600 dark:placeholder-gray-400  
@@ -268,46 +299,11 @@ export const PenimbanganPage = () => {
                 />
               </div>
 
-              {/* Sopir & Operator */}
-              <div className="px-6">
-                <div className="mt-4 grid grid-cols-2">
-                  <h3 className="text-sm text-center font-bold text-gray-900">
-                    Operator
-                  </h3>
-                  <h3 className="text-sm font-bold text-center text-gray-900">
-                    Sopir
-                  </h3>
-                </div>
-                <div className="mt-4 grid grid-cols-2">
-                  <div className="flex items-center justify-center">
-                    <input
-                      placeholder="Nama Operator"
-                      id="operator"
-                      required
-                      type="text"
-                      disabled={!isEditing}
-                      className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <input
-                      placeholder="Nama Sopir"
-                      id="sopir"
-                      required
-                      type="text"
-                      disabled={!isEditing}
-                      className="text-sm hover:bg-gray-100  text-gray-900 border border-gray-300 rounded-2xl p-1 w-1/2"
-                    />
-                  </div>
-                  {/* <h5 className="text-sm text-center text-gray-900">Admin</h5> */}
-                </div>
-              </div>
-
               {/* Simpan Button */}
               <div>
                 <button
                   type="submit"
-                  disabled={!isEditing}
+                  // disabled={!isEditing}
                   className="mt-4 text-white bg-blue-700 hover:bg-blue-800 
               focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold 
               rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center 
