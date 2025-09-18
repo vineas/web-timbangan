@@ -148,7 +148,7 @@ export const MasterProductsPage = () => {
                     Kode
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     value={insertKodeBarangs}
                     onChange={(e) => setInsertKodeBarangs(e.target.value)}
                     id="kode_barang"

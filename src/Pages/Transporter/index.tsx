@@ -4,7 +4,6 @@ import supabase from "../../lib/db";
 import Alert from "@mui/material/Alert";
 import Collapse from "@mui/material/Collapse";
 
-
 export const TransporterPage = () => {
   // CRUD Transporter
   const [transporters, setTransporters] = useState<Transporter[]>([]);
@@ -155,7 +154,7 @@ export const TransporterPage = () => {
                   <input
                     value={insertKodeTransporter}
                     onChange={(e) => setInsertKodeTransporter(e.target.value)}
-                    type="text"
+                    type="number"
                     id="kode_transporter"
                     name="kode_transporter"
                     className="border-2 border-gray-300 text-gray-900 text-sm rounded-full 
@@ -190,24 +189,32 @@ export const TransporterPage = () => {
 
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-medium 
+                <button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium 
                   rounded-full px-8 py-3 transition-colors duration-200 
                   focus:ring-4 focus:ring-blue-300 focus:outline-none
-                  shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                  shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                >
                   {editTransporterId ? "Perbarui" : "Simpan"}
                 </button>
                 {editTransporterId && (
-                  <button onClick={handleCancel} className="bg-gray-400 text-white px-4 py-2 rounded-full">Batalkan</button>
+                  <button
+                    onClick={handleCancel}
+                    className="bg-gray-400 text-white px-4 py-2 rounded-full"
+                  >
+                    Batalkan
+                  </button>
                 )}
               </div>
             </div>
           </form>
           {/* Alert hanya tampil kalau open = true */}
-                      <Collapse in={open}>
-                        <Alert severity={severity} onClose={() => setOpen(false)}>
-                          {message}
-                        </Alert>
-                      </Collapse>
+          <Collapse in={open}>
+            <Alert severity={severity} onClose={() => setOpen(false)}>
+              {message}
+            </Alert>
+          </Collapse>
 
           {/* Table Section */}
           <div className="container mx-auto p-4">
@@ -251,10 +258,16 @@ export const TransporterPage = () => {
                         </td>
                         <td className="w-2/5 p-4">
                           <div className="flex items-center gap-3">
-                            <button onClick={() => handleEdit(transporter)} className="text-sm font-semibold text-blue-600 hover:text-blue-800 px-3 py-1 rounded hover:bg-blue-50 transition-colors duration-150">
+                            <button
+                              onClick={() => handleEdit(transporter)}
+                              className="text-sm font-semibold text-blue-600 hover:text-blue-800 px-3 py-1 rounded hover:bg-blue-50 transition-colors duration-150"
+                            >
                               Edit
                             </button>
-                            <button onClick={() => handleDelete(transporter.id)} className="text-sm font-semibold text-red-600 hover:text-red-800 px-3 py-1 rounded hover:bg-red-50 transition-colors duration-150">
+                            <button
+                              onClick={() => handleDelete(transporter.id)}
+                              className="text-sm font-semibold text-red-600 hover:text-red-800 px-3 py-1 rounded hover:bg-red-50 transition-colors duration-150"
+                            >
                               Delete
                             </button>
                           </div>
