@@ -115,7 +115,6 @@ export default function TimbangKeluar() {
                       <td className="p-4">
                         <p className="text-sm">{item.nama_operator}</p>
                       </td>
-                      <td className="p-4"></td>
                     </tr>
                   ))}
               </tbody>

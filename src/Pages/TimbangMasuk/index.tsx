@@ -110,7 +110,6 @@ export default function TimbangMasuk() {
                         {item.nama_operator}
                     </p>
                   </td>
-                  <td className="p-4"></td>
                 </tr>
                 ))}
               </tbody>
